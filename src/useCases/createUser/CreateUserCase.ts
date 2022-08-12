@@ -4,10 +4,10 @@ import { client } from '../../prisma/client';
 interface IUserRequest {
     name: string;
     username: string;
-    password: string
+    password: string;
 }
 
-class CreateUseCase {
+class CreateUserCase {
 
     async execute({ name, username, password }: IUserRequest) {
 
@@ -15,7 +15,7 @@ class CreateUseCase {
         const userAlreadyExists = await client.user.findFirst({
             where: {
                 username,
-            }
+            },
         })
 
         if (userAlreadyExists) {
@@ -33,9 +33,8 @@ class CreateUseCase {
                 password: hashedPassword,
             }
         })
-
         return user
     }
 }
 
-export { CreateUseCase }
+export { CreateUserCase }
